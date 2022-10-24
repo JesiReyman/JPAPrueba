@@ -1,6 +1,0 @@
-com\jpaDemo\ejemplo\JpademoApplication.class
-com\jpaDemo\ejemplo\repository\PersonaRepository.class
-com\jpaDemo\ejemplo\service\PersonaService.class
-com\jpaDemo\ejemplo\model\Persona.class
-com\jpaDemo\ejemplo\Controller\Controller.class
-com\jpaDemo\ejemplo\service\IPersonaService.class
