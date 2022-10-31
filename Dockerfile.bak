@@ -3,11 +3,13 @@
 FROM eclipse-temurin:17-jdk-alpine as builder
 
 # Copy local code to the container image.
-WORKDIR /app
-COPY pom.xml .
-COPY src ./src
-
-RUN mvn dependency:go-offline
+ENV HOME=/usr/app
+RUN mkdir -p $HOME
+WORKDIR $HOME
+ADD pom.xml $HOME
+RUN mvn verify --fail-never
+ADD . $HOME
+RUN mvn package
 
 # Build a release artifact.
 RUN mvn package -DskipTests
@@ -19,7 +21,7 @@ RUN mvn package -DskipTests
 FROM eclipse-temurin:17-jdk-alpine
 
 # Copy the jar to the production image from the builder stage.
-COPY --from=builder /app/target/ejemplo-*.jar ejemplo.jar
+COPY --from=builder /usr/app/target/ejemplo-*.jar ejemplo.jar
 
 # Run the web service on container startup.
 CMD java $JAVA_OPTS -Dserver.port=$PORT -jar ejemplo.jar

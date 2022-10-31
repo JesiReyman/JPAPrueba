@@ -1,6 +1,6 @@
 # Use the official maven/Java 8 image to create a build artifact.
 # https://hub.docker.com/_/maven
-FROM eclipse-temurin:17-jdk-alpine as builder
+FROM maven:3.8.5-eclipse-temurin-17-alpine as builder
 
 # Copy local code to the container image.
 ENV HOME=/usr/app
@@ -18,7 +18,7 @@ RUN mvn package -DskipTests
 # It's important to use OpenJDK 8u191 or above that has container support enabled.
 # https://hub.docker.com/r/adoptopenjdk/openjdk8
 # https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-stage-builds
-FROM eclipse-temurin:17-jdk-alpine
+FROM openjdk:17-alpine3.14
 
 # Copy the jar to the production image from the builder stage.
 COPY --from=builder /usr/app/target/ejemplo-*.jar ejemplo.jar
