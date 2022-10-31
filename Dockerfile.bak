@@ -1,6 +1,6 @@
 # Use the official maven/Java 8 image to create a build artifact.
 # https://hub.docker.com/_/maven
-FROM maven:3.8.5-openjdk-17 as builder
+FROM maven:3.8.5-openjdk-17-slim as builder
 
 # Copy local code to the container image.
 WORKDIR /app
@@ -20,7 +20,7 @@ FROM openjdk:17-jdk-alpine
 COPY --from=builder /app/target/ejemplo-*.jar ejemplo.jar
 
 # Run the web service on container startup.
-CMD java $JAVA_OPTS -Dserver.port=$PORT -jar /ejemplo.jar
+CMD java $JAVA_OPTS -Dserver.port=$PORT -jar ejemplo.jar
 
 
 
