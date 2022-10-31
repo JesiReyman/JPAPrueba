@@ -7,7 +7,7 @@ WORKDIR /app
 COPY pom.xml .
 COPY src ./src
 
-RUN mvn verify --fail-never
+RUN mvn dependency:go-offline
 
 # Build a release artifact.
 RUN mvn package -DskipTests
