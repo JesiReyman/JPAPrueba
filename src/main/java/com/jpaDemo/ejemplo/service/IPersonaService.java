@@ -4,6 +4,7 @@
  */
 package com.jpaDemo.ejemplo.service;
 
+import com.jpaDemo.ejemplo.DTO.PersonaDTO;
 import com.jpaDemo.ejemplo.model.Persona;
 import java.util.List;
 
@@ -23,4 +24,7 @@ public interface IPersonaService {
     
     //Encontrar una persona
     public Persona findPersona(Long id);
+
+    //Editar persona
+    public void editarPersona(PersonaDTO personaDTO);
 }

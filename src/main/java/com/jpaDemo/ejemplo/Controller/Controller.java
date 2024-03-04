@@ -1,5 +1,6 @@
 package com.jpaDemo.ejemplo.Controller;
 
+import com.jpaDemo.ejemplo.DTO.PersonaDTO;
 import com.jpaDemo.ejemplo.model.Persona;
 import com.jpaDemo.ejemplo.service.IPersonaService;
 import java.util.List;
@@ -37,20 +38,18 @@ public class Controller {
     return "La persona se eliminó correctamente";
     }
     
-    @PutMapping("/editar/{id}")
-    public Persona editPersona(@PathVariable Long id,
-            @RequestParam ("nombre") String nuevoNombre,
-            @RequestParam ("apellido") String nuevoApellido,
-            @RequestParam ("edad") int nuevaEdad){
+    @PutMapping("/editar")
+    public void editPersona(@RequestBody PersonaDTO personaDTO){
+        interPersona.editarPersona(personaDTO);
         //Busco a la persona en cuestión
-    Persona perso = interPersona.findPersona(id);
+    //Persona perso = interPersona.findPersona(id);
     
     //edito los campos de esa persona
-    perso.setNombre(nuevoNombre);
+    /*perso.setNombre(nuevoNombre);
     perso.setApellido(nuevoApellido);
     perso.setEdad(nuevaEdad);
     
     interPersona.savePersona(perso);
-    return perso;
+    return perso;*/
     }
 }

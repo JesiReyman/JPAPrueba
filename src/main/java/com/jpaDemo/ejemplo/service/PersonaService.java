@@ -4,6 +4,8 @@
  */
 package com.jpaDemo.ejemplo.service;
 
+import com.jpaDemo.ejemplo.DTO.PersonaDTO;
+import com.jpaDemo.ejemplo.DTO.PersonaMapper;
 import com.jpaDemo.ejemplo.model.Persona;
 import com.jpaDemo.ejemplo.repository.PersonaRepository;
 import java.util.List;
@@ -16,6 +18,9 @@ public class PersonaService implements IPersonaService{
     //new PersonaRepository
     @Autowired
     private PersonaRepository persoRepository;
+
+    @Autowired
+    private PersonaMapper personaMapper;
     
     @Override
     public List<Persona> getPersonas(){
@@ -38,5 +43,12 @@ public class PersonaService implements IPersonaService{
     Persona perso = persoRepository.findById(id).orElse(null);
     return perso;
     }
-    
+
+    @Override
+    public void editarPersona(PersonaDTO personaDTO) {
+        Persona personaOriginal = persoRepository.findById(personaDTO.getId()).orElse(null);
+        Persona personaEditada = personaMapper.convertirAPersona(personaDTO);
+        persoRepository.save(personaEditada);
+    }
+
 }
